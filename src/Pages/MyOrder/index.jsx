@@ -4,7 +4,7 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartContext } from "../../Context";
 import Layout from "../../Components/Layout";
 import OrderCard from "../../Components/OrderCard";
-
+import { totalPrice } from "../../utils";
 const MyOrder = () => {
   const context = useContext(ShoppingCartContext);
   const currentPath = window.location.pathname;
@@ -28,8 +28,15 @@ const MyOrder = () => {
             imageUrl={product.images[0]}
             price={product.price}
             onShow={true}
+            amount={product.amount}
           />
         ))}
+      </div>
+      <div className="flex justify-between items-center p-6">
+        <span className="font-medium text-2xl font-bold">Total:</span>
+        <span className="font-medium text-2xl font-bold">
+          ${totalPrice(context.order?.[index]?.products)}
+        </span>
       </div>
     </Layout>
   );

@@ -3,6 +3,7 @@ import Layout from "../../Components/Layout";
 import Card from "../../Components/Card";
 import ProductDetail from "../../Components/ProductDetail";
 import { ShoppingCartContext } from "../../Context";
+import NotFound from "../NotFound";
 const Home = () => {
   const context = useContext(ShoppingCartContext);
   const products = context.items;
@@ -14,7 +15,7 @@ const Home = () => {
     } else {
       return (
         <div className="col-span-4 flex justify-center">
-          <p>No products found</p>
+         <NotFound/>
         </div>
       );
     }

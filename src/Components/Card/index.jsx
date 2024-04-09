@@ -10,10 +10,12 @@ const Card = ({ product, index }) => {
     context.setIsProductDetailOpen(true);
     context.setProductToShow(product);
   };
+
   const AddProductsToCart = (event) => {
     event.stopPropagation();
-    context.setCount(context.count + 1);
     context.setCartProducts([...context.cartProducts, product]);
+    if(context.count ===0) context.setCount(1);
+    else context.setCount(context.count + 1);
     context.setIsProductDetailOpen(false);
     context.setIsCheckoutSideMenuOpen(true);
   };
@@ -36,7 +38,7 @@ const Card = ({ product, index }) => {
           className="absolute top-0 right-0 flex justify-center 
     items-center bg-green-700 w-6 h-6 rounded-full m-2 cursor-pointer"
         >
-          <CheckIcon className="w-4 h-4 text-white"  />
+          <CheckIcon className="w-4 h-4 text-white" />
         </div>
       );
     }

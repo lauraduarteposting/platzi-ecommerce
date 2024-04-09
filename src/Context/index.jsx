@@ -59,6 +59,7 @@ const ShoppingCartProvider = ({ children }) => {
       return items;
     }
   };
+  
 
 
   useEffect(() => {

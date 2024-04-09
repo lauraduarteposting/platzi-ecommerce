@@ -6,9 +6,14 @@
 const totalPrice = (products) => {
   let sum = 0;
   products.forEach((product) => {
-    sum += product.price;
+    if (product.amount > 0) {
+      sum += product.price * product.amount;
+    } else {
+      sum += product.price;
+    }
   });
   return sum;
 };
+
 
 export { totalPrice };

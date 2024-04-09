@@ -13,7 +13,7 @@ const CheckoutSideMenu = () => {
       (product) => product.id !== id
     );
     context.setCartProducts(filteredProducts);
-    context.setCount(context.count - 1);
+  
   };
 
   const handleCheckout = () => {

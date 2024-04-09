@@ -2,21 +2,49 @@ import { useState, useContext } from "react";
 import { TrashIcon, PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 import { ShoppingCartContext } from "../../Context";
 
+
 const OrderCard = (props) => {
-  const { imageUrl, title, price, id, handleDelete, onShow } = props;
+  const {
+    imageUrl,
+    title,
+    price,
+    id,
+    handleDelete,
+    onShow,
+    amount: initialAmount,
+  } = props;
+  let cartAmount = initialAmount;
+  if (cartAmount === undefined) cartAmount = 1;
   const [amount, setAmount] = useState(1);
+ 
   const context = useContext(ShoppingCartContext);
+  const total = price * amount;
   const handleDecrease = () => {
     if (amount > 1) {
       setAmount(amount - 1);
-      context.setCartP;
+      updateCartAmount(id, amount - 1);
     } else {
+      updateCartAmount(id, 0);
       handleDelete(id);
+    
     }
+
   };
 
   const handleIncrease = () => {
     setAmount(amount + 1);
+    updateCartAmount(id, amount + 1);
+  };
+  const updateCartAmount = (productId, newAmount) => {
+    const updatedCartProducts = context.cartProducts.map((product) => {
+      if (product.id === productId) {
+        return { ...product, amount: newAmount };
+      }
+      return product;
+    });
+    context.setCount(context.count + newAmount - amount);
+  
+    context.setCartProducts(updatedCartProducts);
   };
 
   return (
@@ -31,6 +59,7 @@ const OrderCard = (props) => {
         </figure>
         <p className="font-light text-sm">{title}</p>
       </div>
+      {onShow && <span className="font-medium text-lg">{cartAmount}</span>}
       {!onShow && (
         <div className="flex items-center gap-2">
           <MinusIcon
@@ -46,7 +75,7 @@ const OrderCard = (props) => {
         </div>
       )}
       <div className="flex gap-4 ">
-        <p className="font-medium text-lg font-bold">${price * amount}</p>
+        <p className="font-medium text-lg font-bold">${total}</p>
         {!onShow && (
           <p>
             <TrashIcon
@@ -56,6 +85,7 @@ const OrderCard = (props) => {
           </p>
         )}
       </div>
+    
     </div>
   );
 };

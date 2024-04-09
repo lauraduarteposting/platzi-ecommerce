@@ -8,7 +8,7 @@ const leftList = [
     to: "/",
     name: "Shopi",
     className: "font-semibold text-xl",
-    category:null
+    category: null,
   },
   {
     to: "/",
@@ -20,7 +20,6 @@ const leftList = [
     to: "/smartphones",
     name: "Smartphones",
     category: "smartphones",
-    name: "",
     className: "",
   },
   {
@@ -106,7 +105,6 @@ const NavBar = () => {
             <NavLink
               to={item.to}
               key={index}
-         
               className={({ isActive }) =>
                 isActive ? activeclassName : undefined
               }
@@ -117,7 +115,7 @@ const NavBar = () => {
                     className="w-6 h-6 cursor-pointer"
                     onClick={() => context.setIsCheckoutSideMenuOpen(true)}
                   />
-                  <span>{context.cartProducts.length}</span>
+                  <span>{context.count}</span>
                 </div>
               ) : (
                 item.name
